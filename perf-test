@@ -1,0 +1,19 @@
+mkdir results
+apt-get install libx11-dev libgl1-mesa-dev libxext-dev perl perl-modules make unzip gcc -y
+wget https://github.com/kdlucas/byte-unixbench/archive/master.zip
+unzip -o master.zip 
+cd byte-unixbench-master/UnixBench
+./Run
+mv results/* ../results
+cd ../..
+apt-get install sysbench -y
+sysbench --test=cpu --cpu-max-prime=20000 run > /root/results/sysbench_cpu_result
+sysbench --test=fileio --file-total-size=13G --file-test-mode=rndrw --init-rng=on --max-time=300 --max-requests=0 prepare
+sysbench --test=fileio --file-total-size=13G --file-test-mode=rndrw --init-rng=on --max-time=300 --max-requests=0 run > /root/results/sysbench_fileio_result
+rm test_file.* -f
+/usr/bin/fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=fio --filename=/tmp/fio.img --bs=4k --iodepth=64 --size=110M,210M,55M --readwrite=randrw --rwmixread=75 > /root/results/fio_result_1
+/usr/bin/fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=fio --filename=/tmp/fio.img --bs=4k --iodepth=64 --size=110M,210M,55M --readwrite=randrw --rwmixread=75 > /root/results/fio_result_2
+/usr/bin/fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=fio --filename=/tmp/fio.img --bs=4k --iodepth=64 --size=110M,210M,55M --readwrite=randrw --rwmixread=75 > /root/results/fio_result_3
+cd
+apt-get install iozone3
+iozone -a -s 4096 > /root/results/iozone_result
