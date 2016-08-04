@@ -1,4 +1,4 @@
-mkdir results
+mkdir /root/results
 apt-get install libx11-dev libgl1-mesa-dev libxext-dev perl perl-modules make unzip gcc -y
 wget https://github.com/kdlucas/byte-unixbench/archive/master.zip
 unzip -o master.zip 
