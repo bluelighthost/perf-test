@@ -17,4 +17,5 @@ rm test_file.* -f
 cd
 apt-get install iozone3
 iozone -a -s 4096 > /root/results/iozone_result
+apt-get install curl -y
 curl -O "https://raw.githubusercontent.com/serverscope/serverscope-benchmark/alpha/serverscope.py" && python serverscope.py -e "sales@bluelighthost.com" -p "$1|Blue Light Host"
