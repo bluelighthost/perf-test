@@ -1,11 +1,5 @@
 mkdir /root/results
 apt-get install libx11-dev libgl1-mesa-dev libxext-dev perl perl-modules make unzip gcc fio -y
-wget https://github.com/kdlucas/byte-unixbench/archive/master.zip
-unzip -o master.zip 
-cd byte-unixbench-master/UnixBench
-./Run
-mv results/* ../results
-cd ../..
 apt-get install sysbench -y
 sysbench --test=cpu --cpu-max-prime=20000 run > /root/results/sysbench_cpu_result
 sysbench --test=fileio --file-total-size=13G --file-test-mode=rndrw --init-rng=on --max-time=300 --max-requests=0 prepare
